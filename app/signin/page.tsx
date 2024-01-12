@@ -43,7 +43,10 @@ const Signin = () => {
       if (storedData) {
         const parsedData = JSON.parse(storedData);
         if (typeof parsedData === 'object' && parsedData.email && parsedData.image) {
-          setFormData({ email: parsedData.email });
+          setFormData((prevData) => ({
+            ...prevData,
+            email: parsedData.email,
+          }));
           setImage(parsedData.image);
         } else {
           console.error('Unexpected data format in localStorage:', parsedData);
