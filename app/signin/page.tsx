@@ -57,6 +57,7 @@ const Signin = () => {
     }
   }, []);
   
+  const [inputKey, setInputKey] = useState(0);
   const handleImageInput = () => {
     inputRef.current?.click();
   };
@@ -135,7 +136,7 @@ const Signin = () => {
   const [cityOpen, setCityOpen] = useState(false);
 
  
-
+  console.log(inputKey)
 
   return (
     <div className='max-container'>
@@ -150,7 +151,7 @@ const Signin = () => {
                 <div className='absolute inset-0 items-center justify-center hidden group-hover:flex'>
                   <div className='text-white text-opacity-75 text-[30px] flex gap-4'>
                     <div className='cursor-pointer' onClick={() => setImageVis(true)}><IoEyeOutline /></div>
-                    <div className='cursor-pointer' onClick={() => setImage(null)}><RiDeleteBin7Line /></div>
+                    <div className='cursor-pointer' onClick={() => { setInputKey((prevKey) => prevKey + 1);setImage(null)}}><RiDeleteBin7Line /></div>
                   </div>
                 </div>
               </div>
@@ -164,6 +165,7 @@ const Signin = () => {
             }
             <input
               className='hidden'
+              key={inputKey}
               type='file'
               ref={inputRef}
               onChange={handleImageChange}
@@ -187,7 +189,7 @@ const Signin = () => {
 
           {/*Password*/}
           <form>
-            <label htmlFor="password">Password </label> {formData.password}<br />
+            <label htmlFor="password">Password </label><br />
             <div className='flex justify-between border border-solid border-gray-300 px-6 py-2 mt-1.5'>
               <div className='flex'>
                 <Password height={25} width={25} />
