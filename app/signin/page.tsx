@@ -4,6 +4,7 @@ import React, { useState, useRef, MutableRefObject, useEffect } from 'react'
 import ImageModal from "@/components/ui/ImageModal";
 import Link from 'next/link'
 import { IoEyeOutline } from "react-icons/io5";
+import {useRouter} from 'next/router';
 import { RiDeleteBin7Line } from "react-icons/ri";
 
 interface FormData {
@@ -21,6 +22,7 @@ interface FormData {
 
 
 const Signin = () => {
+  // const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
@@ -66,26 +68,26 @@ const Signin = () => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
+      reader.readAsDataURL(file);
       reader.onloadend = () => {
         setImage(reader.result as string);
       };
-      reader.readAsDataURL(file);
     }
   };
 
   const submitButton = () => {
     if (formData.email && image) {
-      // ไม่จำเป็นต้องสร้าง URL จาก Blob อีกต่อไป
       const datatoStore = {
         email: formData.email,
-        image: image // ใช้สตริง base64 ที่เก็บใน state `image`
+        image: image 
       };
-  
       const jsonString = JSON.stringify(datatoStore);
       localStorage.setItem('formData', jsonString);
-  
+      
       alert("Stored in Local Storage");
-      window.location.reload();
+
+      window.location.href = '/';
+      //window.location.reload(); 
     } else {
       alert("failed");
     }
